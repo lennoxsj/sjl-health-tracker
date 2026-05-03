@@ -1,8 +1,0 @@
-# Option B: "Refined" — near-black with blue undertone, softer emerald green, serif
-[theme]
-base                  = "dark"
-backgroundColor       = "#0F0F1C"
-secondaryBackgroundColor = "#1A1A2F"
-primaryColor          = "#00C875"
-textColor             = "#F0F0F0"
-font                  = "serif"

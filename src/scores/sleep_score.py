@@ -1,5 +1,7 @@
+# GIT PUBLIC REPO
+
 def _interpolate(value, points):
-    """Linear interpolation between a sorted list of (x, y) control points, clamped at ends."""
+    """Linear interpolation between a list of (x, y) points."""
     if value <= points[0][0]:
         return points[0][1]
     if value >= points[-1][0]:
@@ -76,8 +78,7 @@ def sleep_score(
     interrupted_minutes,
     fns_hours=8.5,
 ):
-    """
-    Compute the Sleep Score (0-100) from last night's sleep data.
+    """Compute the Sleep Score (0-100) from last night's sleep data.
 
     Args:
         total_minutes: Total time asleep in minutes.

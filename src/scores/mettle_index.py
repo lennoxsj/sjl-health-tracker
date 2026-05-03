@@ -1,5 +1,6 @@
-import random
+# GIT PUBLIC REPO
 
+import random
 
 # Control points for load → readiness curve (inverted U).
 # load=0 (stale/detrained) and load>100 (overreaching) both score low.
@@ -32,12 +33,11 @@ def _load_readiness(load):
 
 
 def mettle_index(sleep_score, heart_breathing_score, three_day_avg_load):
-    """
-    Compute the Mettle Index (0-100): readiness to train hard today.
+    """Compute the Mettle Index (0-100): readiness to train hard today.
 
     Load component uses an inverted-U curve — peak readiness at moderate
-    load (~45), dropping off when you've done nothing (stale) or too much
-    (overreaching). Load scores above 100 are handled gracefully.
+    load (~45), dropping off when I've been lazy or done too much
+    (overreaching)..
 
     Args:
         sleep_score: Sleep Score (0-100).
@@ -45,8 +45,8 @@ def mettle_index(sleep_score, heart_breathing_score, three_day_avg_load):
         three_day_avg_load: 3-day average activity load (uncapped).
 
     Returns:
-        dict with 'score' (int) and component breakdown.
-    """
+        dict with 'score' (int) and component breakdown."""
+    
     readiness        = _load_readiness(three_day_avg_load)
 
     sleep_points     = sleep_score * 0.40
@@ -69,8 +69,7 @@ _CYCLING_GROUP = {"road_bike", "gravel_bike"}
 
 
 def suggest_activities(mettle_score, activity_log, n=2):
-    """
-    Suggest activities whose load score is within +/-7 of the Mettle Index.
+    """Suggest activities that have a load score within +/-7 of Mettle Index.
 
     Constraints:
       - Primary and alternative will not both be road_bike / gravel_bike.
@@ -83,8 +82,8 @@ def suggest_activities(mettle_score, activity_log, n=2):
         n: Number of suggestions to return (default 2).
 
     Returns:
-        List of up to n activity dicts. Fewer than n if not enough matches exist.
-    """
+        List of up to n activity dicts. Fewer than n if not enough matches exist."""
+    
     from datetime import date, timedelta
 
     today = date.today()

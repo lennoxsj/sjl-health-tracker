@@ -1,5 +1,9 @@
+# GIT PUBLIC REPO
+
+"""Calculates the Cardiovascular score which is used for the Mettle Index"""
+
 def _interpolate(value, points):
-    """Linear interpolation between a sorted list of (x, y) control points, clamped at ends."""
+    """Linear interpolation between a list of (x, y) points."""
     if value <= points[0][0]:
         return points[0][1]
     if value >= points[-1][0]:
@@ -12,12 +16,9 @@ def _interpolate(value, points):
             return round(y0 + t * (y1 - y0))
     return points[-1][1]
 
-
 def _rhr_score(last_night_rhr, rolling_avg_rhr):
-    """
-    Score 0-100 based on last night's RHR vs. 7-day rolling average.
-    delta = last_night - rolling_avg (positive means elevated)
-    """
+    """Score 0-100 based on last night's RHR vs. 7-day rolling average.
+    delta = last_night - rolling_avg (positive means elevated)"""
     delta = last_night_rhr - rolling_avg_rhr
     points = [
         (-30, 0),
@@ -57,8 +58,7 @@ def _breath_score(breath_bpm):
 
 
 def heart_breathing_score(last_night_rhr, rolling_avg_rhr, hrv_ms, breath_bpm):
-    """
-    Compute the Heart and Breathing Score (0-100).
+    """Compute the Heart and Breathing Score (0-100).
 
     Args:
         last_night_rhr: Last night's resting heart rate (bpm).
@@ -68,7 +68,8 @@ def heart_breathing_score(last_night_rhr, rolling_avg_rhr, hrv_ms, breath_bpm):
 
     Returns:
         dict with 'score' (int) and component scores and weights.
-    """
+
+    Now called Cardiorespiratory score-- need to update this throughout code."""
     components = {
         "resting_heart_rate": {"score": _rhr_score(last_night_rhr, rolling_avg_rhr), "weight": 1/3},
         "hrv":                {"score": _hrv_score(hrv_ms),                           "weight": 1/3},

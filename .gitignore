@@ -1,5 +1,40 @@
-# Data files (stored in health-tracker-data repo instead)
+# Only the following are public:
+#   README.md
+#   src/ingest/activity_log.py
+#   src/ingest/strava.py
+#   src/scores/activity_metrics.py
+#   src/scores/heart_breathing_score.py
+#   src/scores/mettle_index.py
+#   src/scores/sleep_score.py
+
+# Everything else
+app.py
+sync.py
+garmin_setup.py
+requirements.txt
+design/
+research/
+scripts/
+logs/
+.streamlit/
+.obsidian/
+.claude/
+
+# Source folders (exclude all, then allow specific files below)
+src/dashboard/
+src/ingest/eight_sleep.py
+src/ingest/garmin.py
+src/ingest/oura.py
+src/ingest/data_loader.py
+src/ingest/__init__.py
+src/scores/__init__.py
+src/__init__.py
+
+# Data files
 data/
+
+# Secrets
+.env
 
 # Python
 __pycache__/
@@ -7,7 +42,6 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
-.env
 
 # OS
 .DS_Store

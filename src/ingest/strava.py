@@ -1,3 +1,5 @@
+# GIT PUBLIC REPO
+
 import os
 import re
 import time
@@ -102,8 +104,7 @@ _STRENGTH_TYPE_MAP = {
 
 
 def _parse_strength_description(description):
-    """
-    Parse a strength workout description in the format:
+    """Parse a strength workout description in the format:
         Leg strength, volume: 12450lbs, back squat: 185lbs
         Push day strength, volume: 8320lbs
         Pull day strength, volume: 9150lbs
@@ -113,7 +114,10 @@ def _parse_strength_description(description):
         strength_type     : "leg" | "push" | "pull" | "general" | None
         weight_volume_kg  : float | None  (converted from lbs)
         back_squat_kg     : float | None  (converted from lbs, if present)
-    """
+        
+    Note for later: Volume data comes from MyFitBod. MFB does not have an API. 
+    Adding metrics into Strava isn't ideal. Ask MyFitBod about possible API rollout."""
+    
     if not description:
         return {"strength_type": None, "weight_volume_kg": None, "back_squat_kg": None}
 
@@ -147,19 +151,16 @@ def _parse_strength_description(description):
     }
 
 
-
-
 def _fetch_zones4plus_minutes(activity_id, headers, max_hr=185):
-    """
-    Fetch HR zone data for an activity and return minutes in Zone 4+.
+    """Fetch HR zone data for an activity and return minutes in Zone 4+.
 
-    Counts time in any zone that meets either criterion:
+    Counts time in any zone that:
       - zone position >= 4 (1-based), i.e. the 4th zone or higher in Strava's
         list — catches custom 6- and 7-zone configs explicitly
       - zone min bpm >= 80% of max HR (bpm-threshold fallback for standard zones)
 
-    Returns None if zone data is unavailable.
-    """
+    Returns None if zone data not available."""
+
     try:
         resp = requests.get(
             f"{_API_BASE}/activities/{activity_id}/zones",
@@ -187,15 +188,14 @@ def _fetch_zones4plus_minutes(activity_id, headers, max_hr=185):
 
 
 def fetch_activities(days_back=90):
-    """
-    Fetch activities from Strava for the past `days_back` days.
+    """Fetch activities from Strava for the past `days_back` days.
 
     For strength workouts, fetches the full activity detail to extract
     a vol:XXXX tag from the description (total weight volume in kg).
 
-    Returns a list of activity dicts in the dashboard's internal format,
-    sorted newest first. Unsupported activity types are skipped.
-    """
+    Returns list of activity dicts in the dashboard's internal format. 
+    Unsupported activity types skipped."""
+
     access_token = _get_access_token()
     headers = {"Authorization": f"Bearer {access_token}"}
     after_ts = int(time.time()) - days_back * 86400
