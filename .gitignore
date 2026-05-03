@@ -1,0 +1,13 @@
+# Data files (stored in health-tracker-data repo instead)
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
