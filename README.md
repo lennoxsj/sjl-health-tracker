@@ -8,9 +8,11 @@ The Mettle Index is a daily readiness score (0–100) that answers the question:
 
 It combines three components:
 
-| Sleep Score | 40% weight | Oura / Garmin / Eight Sleep |
-| Cardiorespiratory Score | 30% | Resting HR, HRV, breathing rate |
-| Activity Load | 30% | Strava / Oura / Garmin |
+Sleep Score | 40% weight | Oura / Garmin / Eight Sleep |
+
+Cardiorespiratory Score | 30% | Resting HR, HRV, breathing rate |
+
+Activity Load | 30% | Strava / Oura / Garmin |
 
 The load component uses an inverted-U curve — a score of 0 means I'm stale from inactivity, a score of 100 means I'm overreaching. Peak readiness sits around a 3-day average load of ~45.
 
@@ -20,19 +22,19 @@ Activities are scored using my bespoke point-based system rather than a generic 
 
 See `src/scores/activity_metrics.py` for the full implementation. A few details about the scoring logic as well as a few scored examples are below:
 
-## Gravel biking
+### Gravel biking
 25 points per hour of biking (road biking is only 20 points because gravel terrain is physically harder on my body regardless of steepness or speed)
 30 points per hour after 2 hours (extra long rides are not scored linearly)
 1 point per steepness index point per hour (steeper ride = higher load score)
 1 point per 15 minutes in Zone 4+
 
-## Swimming (open water in the Bay or Lake Tahoe)
+### Swimming (open water in the Bay or Lake Tahoe)
 15 points per 500m of swimming
 20 points per 500m of swimming >2km (longer time in cold water is not scored linearly)
 1 point per 10 seconds swum below baseline 100m swim pace (faster pace = pushing harder)
 2 points per 15 minutes spent above 80% of max HR (this would likely mean sprinting, which may not show up in overall pace)
 
-## Examples
+### Examples
 
 ```python
 from src.scores.activity_metrics import activity_load_score
