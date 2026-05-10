@@ -1,35 +1,30 @@
 # GIT PUBLIC REPO
 
 import random
+from collections import namedtuple
+import numpy as np
 
-# Control points for load → readiness curve (inverted U).
-# load=0 (stale/detrained) and load>100 (overreaching) both score low.
-# Peak readiness is around load 40-50 (well-trained, not fatigued).
-_LOAD_READINESS_POINTS = [
-    (0,   35),   # no recent training — stale
-    (20,  70),   # light training
-    (45, 100),   # optimal load — peak readiness
-    (65,  75),   # moderately tired but still good
-    (85,  40),   # fatigued
-    (110, 10),   # overreaching
-    (140,  0),   # excessive — needs rest
+# Control point on the load → readiness curve: 3-day avg load -> readiness 0-100.
+Point = namedtuple("Point", ["load", "readiness"])
+
+# Inverted-U curve. load=0 (stale/detrained) and load>100 (overreaching) both
+# score low. Peak readiness is around load 40-50 (well-trained, not fatigued).
+_LOAD_READINESS_CURVE = [
+    Point(  0,  35),   # no recent training — stale
+    Point( 20,  70),   # light training
+    Point( 45, 100),   # optimal load — peak readiness
+    Point( 65,  75),   # moderately tired but still good
+    Point( 85,  40),   # fatigued
+    Point(110,  10),   # overreaching
+    Point(140,   0),   # excessive — needs rest
 ]
 
 
 def _load_readiness(load):
     """Map 3-day avg load (uncapped) to a 0-100 readiness value via the inverted-U curve."""
-    points = _LOAD_READINESS_POINTS
-    if load <= points[0][0]:
-        return points[0][1]
-    if load >= points[-1][0]:
-        return points[-1][1]
-    for i in range(len(points) - 1):
-        x0, y0 = points[i]
-        x1, y1 = points[i + 1]
-        if x0 <= load <= x1:
-            t = (load - x0) / (x1 - x0)
-            return y0 + t * (y1 - y0)
-    return points[-1][1]
+    xs = [p.load for p in _LOAD_READINESS_CURVE]
+    ys = [p.readiness for p in _LOAD_READINESS_CURVE]
+    return float(np.interp(load, xs, ys))
 
 
 def mettle_index(sleep_score, heart_breathing_score, three_day_avg_load):
