@@ -1,6 +1,16 @@
 # Mettle Index — Sarah's Personal Health Tracker
 
-I love my wearables and all the data they provide, but I became frustrated with not having an aggregator. My Personal Health Tracker, built in Python and Streamlit, is an attempt to consolidate some high use data, track goals and experiment with personal scoring algorithms. This repository contains the core scoring and data ingestion logic but as this is a personal project, the full dashboard, data pipeline, and configuration are not included in this repository.
+I love my wearables and all the data they provide, but I became frustrated with not having an aggregator. My Personal Health Tracker, built in Python and Streamlit, consolidates data from my wearables and interfaces like Strava, and runs my own scoring algorithms for daily training readiness and individual activity load. This public repo contains copies of some of the main files:
+
+- The Strava ingestion module: Most of my activities appear on Strava, collected from my Garmin watch or Karoo II bike computer
+- Activity log: What it sounds like
+- Scoring logic for: 
+    * Cardiorespiratory score (based on my overnight HRV, RHR, and breathing rate)
+    * Sleep score (based on total time asleep, deep sleep, REM sleep, and sleep disturbances)
+    * Load score (personalized point-based load sore assigned to different activities)
+    * Mettle Index
+
+This repository contains the core scoring and data ingestion logic — as this is a personal project, the full dashboard, data pipeline, and configuration are not included here. Ingestion modules for Garmin, Oura, Eight Sleep, and Strava sync data to .json files. My bespoke scores are calculated, and deployed to the Streamlit cloud. My streamlit dashboard sits here: https://sjl-health-tracker.streamlit.app/
 
 ## What is the Mettle Index?
 
@@ -8,13 +18,13 @@ The Mettle Index is a daily readiness score (0–100) that answers the question:
 
 It combines three components:
 
-Sleep Score | 40% weight | Oura / Garmin / Eight Sleep |
+| Component | Weight | Primary Sources |
+|---|---|---|
+| Sleep Score | 40% | Oura / Garmin / Eight Sleep |
+| Cardiorespiratory Score | 30% | Oura / Garmin / Eight Sleep |
+| Activity Load | 30% | Strava / Oura / Garmin |
 
-Cardiorespiratory Score | 30% | Resting HR, HRV, breathing rate |
-
-Activity Load | 30% | Strava / Oura / Garmin |
-
-The load component uses an inverted-U curve — a score of 0 means I'm stale from inactivity, a score of 100 means I'm overreaching. Peak readiness sits around a 3-day average load of ~45.
+The load component uses an inverted-U curve. A score of 0 means I'm stale from inactivity, a score of 100 means I'm overreaching. Peak readiness sits around a 3-day average load of ~45.
 
 ## Activity Load Scoring
 

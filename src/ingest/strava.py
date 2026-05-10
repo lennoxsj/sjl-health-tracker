@@ -27,6 +27,8 @@ SPORT_TYPE_MAP = {
     "Yoga":              "yoga",
     "Pilates":           "pilates",
     "PhysicalTherapy":   "stretch_mobility",
+    "AlpineSki":         "downhill_skiing",
+    "StandUpPaddling":   "stand_up_paddle_boarding",
 }
 
 
