@@ -1,6 +1,11 @@
 # Mettle Index — Sarah's Personal Health Tracker
 
-I love my wearables and all the data they provide, but I became frustrated with not having an aggregator. My Personal Health Tracker, built in Python and Streamlit, consolidates data from my wearables and interfaces like Strava, and runs my own scoring algorithms for daily training readiness and individual activity load. This public repo contains copies of some of the main files:
+I love my wearables and all the data they provide, but I became frustrated with not having an aggregator that truly "aggregated". My Personal Health Tracker, built in Python and Streamlit, consolidates data from my wearables and interfaces like Strava, and runs experiments with personal scoring algorithms for daily training readiness and individual activity load. 
+
+Ingestion modules for Garmin, Oura, Eight Sleep, and Strava sync data to .json files. My bespoke scores are calculated, and deployed to the Streamlit cloud. My streamlit dashboard sits here: https://sjl-health-tracker.streamlit.app/
+
+
+The complete code exists in a private repo. This public repo contains copies of some of the main files:
 
 - The Strava ingestion module: Most of my activities appear on Strava, collected from my Garmin watch or Karoo II bike computer
 - Activity log: What it sounds like
@@ -10,7 +15,7 @@ I love my wearables and all the data they provide, but I became frustrated with 
     * Load score (personalized point-based load sore assigned to different activities)
     * Mettle Index
 
-This repository contains the core scoring and data ingestion logic — as this is a personal project, the full dashboard, data pipeline, and configuration are not included here. Ingestion modules for Garmin, Oura, Eight Sleep, and Strava sync data to .json files. My bespoke scores are calculated, and deployed to the Streamlit cloud. My streamlit dashboard sits here: https://sjl-health-tracker.streamlit.app/
+
 
 ## What is the Mettle Index?
 
