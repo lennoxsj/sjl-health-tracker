@@ -85,14 +85,3 @@ score = activity_load_score(
 )
 # → 88
 ```
-
-## Files in this repo
-
-| File | Description |
-|---|---|
-| `src/scores/activity_metrics.py` | Activity load score calculations |
-| `src/scores/mettle_index.py` | Mettle Index and activity suggestions |
-| `src/scores/sleep_score.py` | Sleep score from staging data |
-| `src/scores/heart_breathing_score.py` | Cardiorespiratory score from HRV, RHR, breathing rate |
-| `src/ingest/strava.py` | Strava API integration |
-| `src/ingest/activity_log.py` | Activity log utilities |
